@@ -9,26 +9,33 @@ class EmptyState extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(
-            Icons.note_alt_outlined,
-            size: 100,
-            color: const Color(0xFF948979).withOpacity(0.5),
+          Container(
+            padding: const EdgeInsets.all(30),
+            decoration: const BoxDecoration(
+              color: Color(0xFFFFE8CD),
+              shape: BoxShape.circle,
+            ),
+            child: const Icon(
+              Icons.auto_awesome_motion_rounded,
+              size: 80,
+              color: Color(0xFFFFD6BA),
+            ),
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 24),
           const Text(
-            "No Notes Yet",
+            "Clear space, clear mind",
             style: TextStyle(
               fontSize: 22,
               fontWeight: FontWeight.bold,
-              color: Color(0xFFDFD0B8),
+              color: Color(0xFF5D4037),
             ),
           ),
           const SizedBox(height: 10),
           const Text(
-            "Tap the + button to add your first note",
+            "Your notes will appear here",
             style: TextStyle(
               fontSize: 16,
-              color: Color(0xFF948979),
+              color: Color(0xFF8D6E63),
             ),
           ),
         ],

@@ -4,13 +4,15 @@ class Note {
   String content;
   DateTime dateTime;
   int colorValue;
+  String category;
 
   Note({
     this.id,
     required this.title,
     required this.content,
     required this.dateTime,
-    this.colorValue = 0xFFDFD0B8,
+    this.colorValue = 0xFFFFE8CD,
+    this.category = 'General',
   });
 
   Map<String, dynamic> toMap() {
@@ -20,6 +22,7 @@ class Note {
       'content': content,
       'dateTime': dateTime.millisecondsSinceEpoch,
       'colorValue': colorValue,
+      'category': category,
     };
   }
 
@@ -29,7 +32,8 @@ class Note {
       title: map['title'] ?? '',
       content: map['content'] ?? '',
       dateTime: DateTime.fromMillisecondsSinceEpoch(map['dateTime'] ?? DateTime.now().millisecondsSinceEpoch),
-      colorValue: map['colorValue'] ?? 0xFFDFD0B8,
+      colorValue: map['colorValue'] ?? 0xFFFFE8CD,
+      category: map['category'] ?? 'General',
     );
   }
 }
