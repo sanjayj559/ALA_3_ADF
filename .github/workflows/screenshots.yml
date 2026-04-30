@@ -1,0 +1,39 @@
+name: Generate Screenshots
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  screenshots:
+    runs-on: macos-latest # Required for iOS simulator or stable Android emulators
+    
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+
+      - name: Install Dependencies
+        run: flutter pub get
+
+      - name: Start iOS Simulator
+        run: |
+          xcrun simctl list
+          ID=$(xcrun simctl list devices (Available) | grep "iPhone" | tail -1 | sed -e 's/.*(\(.*\)).*/\1/')
+          echo "Starting simulator with ID: $ID"
+          xcrun simctl boot $ID
+
+      - name: Run Integration Tests & Capture Screenshots
+        run: flutter drive --driver=test_driver/screenshot_driver.dart --target=integration_test/app_test.dart
+
+      - name: Commit and Push Screenshots
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add assets/images/*.png
+          git commit -m "Update automated screenshots" || echo "No changes to commit"
+          git push
